@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clima/services/location.dart';
 import 'package:flutter_clima/services/networking.dart';
+import 'package:flutter_clima/screens/location_screen.dart';
 
 const String apiKey = 'b0f745b08e93733e0fd68303bd49aec2';
 
@@ -20,9 +21,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   void getLocationData() async {
     Location location = Location();
-
     await location.getCurrentLocation();
-
     latitude = location.latitude;
     longitude = location.longitude;
 
@@ -31,13 +30,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     var weatherData = await networkHelper.getData();
 
-    double temperature = weatherData['main']['temp'];
-    int condition = weatherData['weather'][0]['id'];
-    String cityName = weatherData['name'];
-
-    print(temperature);
-    print(condition);
-    print(cityName);
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return LocationScreen();
+    }));
   }
 
   void getData() async {}
