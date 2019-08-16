@@ -3,12 +3,16 @@ import 'package:flutter_clima/services/location.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+const String apiKey = 'b0f745b08e93733e0fd68303bd49aec2';
+
 class LoadingScreen extends StatefulWidget {
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  double latitude;
+  double longitude;
   @override
   void initState() {
     super.initState();
@@ -20,13 +24,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     await location.getCurrentLocation();
 
-    print(location.latitude);
-    print(location.longitude);
+    latitude = location.latitude;
+    longitude = location.longitude;
+
+    getData();
   }
 
   void getData() async {
     http.Response response = await http.get(
-        'https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22');
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -40,13 +46,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
       print('Condition: $condition');
       print('City Name: $cityName');
     } else {
-      print(response.statusCode);
+      print(response.body);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    getData();
     return Scaffold(
       body: Center(
         child: RaisedButton(
