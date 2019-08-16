@@ -5,6 +5,8 @@ void main() => runApp(Clima());
 class Clima extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      theme: ThemeData.dark(),
+    );
   }
 }
