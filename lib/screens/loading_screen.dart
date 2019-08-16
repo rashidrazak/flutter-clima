@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clima/services/location.dart';
 import 'package:flutter_clima/services/networking.dart';
 import 'package:flutter_clima/screens/location_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const String apiKey = 'b0f745b08e93733e0fd68303bd49aec2';
 
@@ -30,9 +31,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     var weatherData = await networkHelper.getData();
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return LocationScreen();
-    }));
+    Duration timeout = Duration(seconds: 2);
+
+    Future.delayed(timeout, () {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return LocationScreen();
+      }));
+    });
   }
 
   void getData() async {}
@@ -41,11 +46,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            print('Get Location Pressed!');
-          },
-          child: Text('Get Location'),
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100.0,
         ),
       ),
     );
