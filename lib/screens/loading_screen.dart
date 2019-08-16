@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clima/services/location.dart';
 import 'package:flutter_clima/services/networking.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 const String apiKey = 'b0f745b08e93733e0fd68303bd49aec2';
 
