@@ -36,6 +36,9 @@ class _CityScreenState extends State<CityScreen> {
                 child: TextField(
                   style: TextStyle(color: Colors.black),
                   decoration: kTextFieldInputDecoration,
+                  onChanged: (value) {
+                    print(value);
+                  },
                 ),
               ),
               FlatButton(
